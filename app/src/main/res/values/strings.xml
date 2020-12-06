@@ -5,4 +5,10 @@
     <string name="month_in">本月收入</string>
     <string name="month_budget">预算剩余</string>
     <string name="seeexcel">查看图表分析</string>
+    <string name="addremark">添加备注</string>
+    <string name="remark">备注</string>
+    <string name="ensure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="pleaseinputtime">请输入时间(24小时制)</string>
+
 </resources>

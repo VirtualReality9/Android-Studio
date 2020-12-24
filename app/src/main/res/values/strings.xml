@@ -4,6 +4,7 @@
     <string name="month_out">本月支出</string>
     <string name="month_in">本月收入</string>
     <string name="month_budget">预算剩余</string>
+    <string name="set_budget">设置预算</string>
     <string name="seeexcel">查看图表分析</string>
     <string name="addremark">添加备注</string>
     <string name="remark">备注</string>

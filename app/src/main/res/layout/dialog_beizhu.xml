@@ -7,7 +7,7 @@
         android:id="@+id/dialog_beizhu_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/addremark"
+        android:text="@string/add_remark"
         android:textSize="16sp"
         android:textColor="@color/black"/>
     <EditText

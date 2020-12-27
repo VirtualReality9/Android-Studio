@@ -64,17 +64,6 @@
             android:text="@string/month_budget"
             android:layout_toLeftOf="@id/item_mainlv_top_tv_budget"
             android:layout_alignBottom="@id/item_mainlv_top_tv2"/>
-        <TextView
-            android:id="@+id/item_mainlv_top_tv4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/ih_biaoge"
-            android:layout_below="@id/item_mainlv_top_tv2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/seeexcel"
-            android:textColor="@color/green_006400"
-            android:drawablePadding="10dp"/>
     </RelativeLayout>
 
     <TextView

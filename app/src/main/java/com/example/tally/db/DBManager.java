@@ -84,6 +84,29 @@ public class DBManager {
     }
 
     /*
+     * 获取记账表当中某一月的所有支出或者收入情况
+     * */
+    public static List<AccountBean>getAccountListOneMonthFromAccounttb(int year,int month) {
+        List<AccountBean>list = new ArrayList<>();
+        String sql = "select * from accounttb where year=? and month=? order by id desc";
+        Cursor cursor = db.rawQuery(sql, new String[]{year + "", month + ""});
+        // 遍历符合要求的每一行数据
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String typename = cursor.getString(cursor.getColumnIndex("typename"));
+            String beizhu = cursor.getString(cursor.getColumnIndex("beizhu"));
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            int sImageId = cursor.getInt(cursor.getColumnIndex("sImageId"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            int day = cursor.getInt(cursor.getColumnIndex("day"));
+            AccountBean accountBean = new AccountBean(id, typename, sImageId, beizhu, money, time, year, month, day, kind);
+            list.add(accountBean);
+        }
+        return list;
+    }
+
+    /*
     * 获取某一天的支出或者收入的总金额 kind: 0 -> 支出; 1 -> 收入
     * */
     public static float getSumMoneyOneDay(int year,int month,int day, int kind) {
@@ -126,5 +149,59 @@ public class DBManager {
             total = money;
         }
         return total;
+    }
+
+    /*
+    * 根据传入的id，删除 accounttb 表当中的一条数据
+    * */
+    public static int deleteItemFromAccounttbById(int id) {
+        int i = db.delete("accounttb", "id=?", new String[]{id + ""});
+        return i;
+    }
+
+    /*
+    * 根据备注搜索收入或者支出的情况列表
+    * */
+    public static List<AccountBean>getAccountListByRemarkFromAccounttb(String beizhu) {
+        List<AccountBean>list = new ArrayList<>();
+        String sql = "select * from accounttb where beizhu like '%"+beizhu+"%'";
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String typename = cursor.getString(cursor.getColumnIndex("typename"));
+            String bz = cursor.getString(cursor.getColumnIndex("beizhu"));
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            int sImageId = cursor.getInt(cursor.getColumnIndex("sImageId"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            int year = cursor.getInt(cursor.getColumnIndex("year"));
+            int month = cursor.getInt(cursor.getColumnIndex("month"));
+            int day = cursor.getInt(cursor.getColumnIndex("day"));
+            AccountBean accountBean = new AccountBean(id, typename, sImageId, bz, money, time, year, month, day, kind);
+            list.add(accountBean);
+        }
+        return list;
+    }
+
+    /*
+    * 查询记账的表当中有几个年份信息
+    * */
+    public static List<Integer>getYearListFromAccounttb() {
+        List<Integer>list = new ArrayList<>();
+        String sql = "select distinct(year) from accounttb order by year asc";
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            int year = cursor.getInt(cursor.getColumnIndex("year"));
+            list.add(year);
+        }
+        return list;
+    }
+
+    /*
+    * 删除accounttb表格当中所有数据
+    * */
+    public static void deleteAllAccount() {
+        String sql = "delete from accounttb";
+        db.execSQL(sql);
     }
 }
